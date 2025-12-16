@@ -1,0 +1,16 @@
+{
+  "name": "code-reviewer-mcp",
+  "version": "1.0.0",
+  "description": "This is a mcp tool that can be used to review code and PR(From various platform like GitHub and BitBucket)",
+  "license": "ISC",
+  "author": "Raj Trivedi",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.25.1",
+    "zod": "^4.2.1"
+  }
+}
