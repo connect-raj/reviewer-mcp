@@ -234,21 +234,26 @@ export class GitHubService {
   }
 
   /**
-   * Format comment body with severity and suggestions
+   * Format comment body with category, confidence, severity and suggestions
    * @param {Object} comment - Comment object
    * @returns {string} Formatted comment body
    */
   formatCommentBody(comment) {
     let body = '';
 
-    // Add severity indicator
-    const severityEmoji = {
-      critical: '🔴',
-      warning: '🟡',
-      info: 'ℹ️'
-    };
-
-    body += `${severityEmoji[comment.severity] || ''} **${comment.severity.toUpperCase()}**: ${comment.message}\n`;
+    // Add category and confidence indicator
+    const emoji = comment.emoji || '🔵';
+    const category = comment.category || 'SUGGESTION';
+    const confidence = comment.confidence !== undefined ? comment.confidence : 70;
+    
+    // Confidence emoji
+    const confidenceEmoji = confidence >= 90 ? '🎯' : confidence >= 75 ? '✅' : confidence >= 60 ? '⚠️' : '❔';
+    
+    // Header with category, confidence
+    body += `${emoji} **${category}** ${confidenceEmoji} (Confidence: ${confidence}%)\n\n`;
+    
+    // Message
+    body += `${comment.message}\n`;
 
     // Add suggestion if available
     if (comment.suggestion) {
